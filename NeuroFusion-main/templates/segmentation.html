@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block head %}
+    <style>
+        .result-img {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 5px;
+            background: rgba(0,0,0,0.3);
+            max-width: 100%;
+            transition: transform 0.3s ease;
+        }
+        .result-img:hover {
+            transform: scale(1.02);
+            border-color: #2dd4bf;
+        }
+        .report-card {
+            background: rgba(45, 212, 191, 0.05);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: left;
+        }
+        .stat-box {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .stat-label {
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+        .text-teal {
+            color: #2dd4bf;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-5 fw-bold mb-3">AI Image <span class="text-teal">Segmentation</span> & Analysis</h1>
+            <p class="text-secondary w-75 mx-auto fs-5">
+                A watershed transformation calculates topographical brightness mapping to find the lines that run along the tops of ridges, effectively segmenting brain boundaries and potential tumors.
+            </p>
+        </div>
+    </div>
+
+    <div class="row gx-5">
+        <div class="col-lg-6 mb-4">
+            <div class="glass-box text-center h-100 position-relative">
+                <div style="position: absolute; top: 0px; left: 0px; width: 150px; height: 150px; background: rgba(45, 212, 191, 0.2); filter: blur(40px); border-radius: 50%;"></div>
+                <h3 class="mb-4">Final Segmented <span class="text-teal">Image</span></h3>
+                <img src="{{ url_for('static',filename='segmented.jpg') }}" alt="Segmented Image" class="result-img shadow-lg w-100">
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="glass-box h-100 d-flex flex-column justify-content-center">
+                <h3 class="mb-4">Image <span class="text-teal">Analysis Report</span></h3>
+                
+                <div class="row gx-2 mb-4">
+                    <div class="col-4">
+                        <div class="stat-box px-2">
+                            <div class="stat-value text-danger" style="font-size: 2rem;">{{ report.red_percent }}%</div>
+                            <div class="stat-label" style="font-size: 0.75rem;">Red Tissue</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-box px-2">
+                            <div class="stat-value text-success" style="font-size: 2rem;">{{ report.green_percent }}%</div>
+                            <div class="stat-label" style="font-size: 0.75rem;">Green Tissue</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-box px-2">
+                            <div class="stat-value text-info" style="font-size: 2rem;">{{ report.other_percent }}%</div>
+                            <div class="stat-label" style="font-size: 0.75rem;">Other Tissue</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-card position-relative">
+                    <span class="badge bg-{{ report.safety_color }} position-absolute" style="top: 20px; right: 20px; font-size: 0.85rem; padding: 8px 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">Condition: {{ report.safety_level }}</span>
+                    <h5 class="mb-3 text-teal">Diagnostic Conclusion</h5>
+                    <p class="fs-5 mt-4 mb-0" style="line-height: 1.6; color: rgba(255,255,255,0.9);">
+                        {{ report.conclusion }}
+                    </p>
+                </div>
+                
+                <div class="mt-4 pt-4 border-top border-secondary text-center">
+                    <a href="/" class="btn btn-outline-light rounded-pill px-4 py-2">Start New Analysis</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

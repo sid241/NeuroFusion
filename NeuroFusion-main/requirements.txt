@@ -1,0 +1,9 @@
+
+Flask
+numpy
+matplotlib
+opencv-python
+imageio
+scipy
+PyWavelets
+Pillow

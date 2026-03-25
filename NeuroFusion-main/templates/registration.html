@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block head %}
+    <style>
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-container img {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 5px;
+            background: rgba(0,0,0,0.3);
+            cursor: crosshair;
+            max-width: 100%;
+            transition: border-color 0.3s;
+        }
+        .image-container img:hover {
+            border-color: #38bdf8;
+        }
+        .coords-panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="mb-3">Select <span class="text-gradient">Co-ordinates</span> for Registration</h2>
+            <p class="text-secondary">Please click on the images below to select matching landmark points ({{ points }} points required).</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="glass-box image-container">
+                <h4 class="mb-3 text-white">MRI Image</h4>
+                <img src="{{ url_for('static',filename='mri.jpg') }}" id="mri" alt="MRI">
+                <div class="coords-panel">
+                    <p class="mb-1 text-secondary">MRI X: <span id="mriX" class="text-info fw-bold"></span></p>
+                    <p class="mb-0 text-secondary">MRI Y: <span id="mriY" class="text-info fw-bold"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="glass-box image-container">
+                <h4 class="mb-3 text-white">CT Image</h4>
+                <img src="{{ url_for('static',filename='ct.jpg') }}" id="ct" alt="CT">
+                <div class="coords-panel">
+                    <p class="mb-1 text-secondary">CT X: <span id="ctX" class="text-info fw-bold"></span></p>
+                    <p class="mb-0 text-secondary">CT Y: <span id="ctY" class="text-info fw-bold"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 text-center">
+            <button onclick="sendParameters()" class="btn btn-custom btn-lg w-50 py-3 rounded-pill shadow-lg">Submit Coordinates & Register</button>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static',filename='js/coord.js') }}"></script>
+    <script type="text/javascript">
+        var myImgMri = document.getElementById("mri");
+        var points = {{ points }};
+        myImgMri.onclick = GetCoordinatesMri;
+
+        var myImgCt = document.getElementById("ct");
+        myImgCt.onclick = GetCoordinatesCt;
+    </script>
+{% endblock %}

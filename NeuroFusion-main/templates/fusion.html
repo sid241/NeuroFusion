@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block head %}
+    <style>
+        .result-img {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 5px;
+            background: rgba(0,0,0,0.3);
+            max-width: 100%;
+            transition: transform 0.3s ease;
+        }
+        .result-img:hover {
+            transform: scale(1.02);
+            border-color: #ec4899;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-5 fw-bold mb-3">Image <span class="text-gradient">Fusion</span> Process</h1>
+            <p class="text-secondary w-75 mx-auto fs-5">
+                Transfer learning is an optimization that allows rapid progress or improved performance when modeling the task. We employ deep CNN architecture to extract complex features and blend optimal values into the fused view.
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8 mb-4">
+            <div class="glass-box text-center">
+                <div style="position: absolute; top: -30px; left: -30px; width: 120px; height: 120px; background: rgba(236, 72, 153, 0.2); filter: blur(30px); border-radius: 50%;"></div>
+                <h3 class="mb-4">The Fused <span class="text-gradient">Master Image</span></h3>
+                <img src="{{ url_for('static',filename='fusion.jpg') }}" alt="Fused Image" class="result-img shadow-lg">
+                
+                <div class="mt-5">
+                    <form action="{{ url_for('segmentation') }}" method="GET">
+                        <button type="submit" class="btn btn-custom btn-lg w-100 py-3 rounded-3 shadow-lg" style="background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);">Proceed to AI Segmentation Analytics</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block head %}
+<style>
+    .history-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(15px);
+        margin-top: 2rem;
+    }
+    .table-dark {
+        background-color: transparent;
+        color: #f8fafc;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(255,255,255,0.05);
+        color: #fff;
+    }
+    th {
+        border-bottom: 2px solid rgba(255,255,255,0.1) !important;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+    td {
+        border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+        vertical-align: middle;
+    }
+    .badge-soft {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="row w-100 mx-0 justify-content-center">
+    <div class="col-lg-10">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 text-white">Doctor <span class="text-gradient">Profile</span></h2>
+            <a href="/" class="btn btn-outline-light rounded-pill px-4">New Analysis</a>
+        </div>
+        
+        <div class="history-card">
+            <h4 class="mb-4 text-white">Analysis History</h4>
+            
+            {% if history|length > 0 %}
+            <div class="table-responsive">
+                <table class="table table-dark table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date/Time</th>
+                            <th scope="col">T. Density (Green)</th>
+                            <th scope="col">M. Density (Red)</th>
+                            <th scope="col">Hypodense (Other)</th>
+                            <th scope="col">Condition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in history %}
+                        <tr>
+                            <td class="text-secondary">{{ record.date }}</td>
+                            <td><span class="text-success fw-bold">{{ record.green_percent }}%</span></td>
+                            <td><span class="text-danger fw-bold">{{ record.red_percent }}%</span></td>
+                            <td><span class="text-info fw-bold">{{ record.other_percent }}%</span></td>
+                            <td>
+                                <span class="badge bg-{{ record.safety_color }} badge-soft">{{ record.safety }}</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <p class="text-secondary fs-5 mb-0">No past analyses found. Start by uploading a new patient scan!</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

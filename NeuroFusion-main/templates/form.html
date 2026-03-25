@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="row gx-5">
+    <div class="col-lg-6 mb-4">
+        <div class="glass-box h-100 position-relative" style="overflow: hidden;">
+            <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(56, 189, 248, 0.2); filter: blur(40px); border-radius: 50%;"></div>
+            <h2 class="mb-4 text-gradient">Multi Modal Medical Image Fusion</h2>
+            <h5 class="text-white mb-4">To Detect Brain Tumors</h5>
+            <p class="text-secondary mb-4" style="line-height: 1.8;">
+                Images are the largest source of data in healthcare and, at the same time, one of the most difficult sources to analyze. Clinicians today must rely largely on medical image analysis performed by overworked radiologists.
+            </p>
+            <p class="text-secondary" style="line-height: 1.8;">
+                Multimodal medical imaging provides separate yet complementary structure and function information. We consider Computed Tomography (CT) and Magnetic Resonance Imaging (MRI) for our Image Fusion Process.
+            </p>
+            <div class="mt-4 pt-3 border-top border-secondary">
+                <div class="d-flex align-items-center">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: #38bdf8; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">
+                        ✓
+                    </div>
+                    <span class="text-white">Seamless Cloud Integration</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 mb-4">
+        <div class="glass-box h-100 position-relative" style="overflow: hidden;">
+            <div style="position: absolute; top: -30px; left: -30px; width: 120px; height: 120px; background: rgba(129, 140, 248, 0.2); filter: blur(30px); border-radius: 50%;"></div>
+            <h3 class="mb-4">Landmark-Based <span class="text-gradient">Registration</span></h3>
+            <p class="text-secondary mb-4">
+                Upload the patient's MRI and CT scans. The CT scan serves as the reference point, while the MRI aligns to it based on selected landmarks to produce an optimal fused visualization.
+            </p>
+            
+            <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label class="form-label" style="font-weight:600; color: #e2e8f0; font-size: 0.9rem;">Select MRI Image</label>
+                    <input type="file" name="mri" id="mri" accept="image/*" class="form-control" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white !important;" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" style="font-weight:600; color: #e2e8f0; font-size: 0.9rem;">Select CT Image</label>
+                    <input type="file" name="ct" id="ct" accept="image/*" class="form-control" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white !important;" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" style="font-weight:600; color: #e2e8f0; font-size: 0.9rem;">Number of Points for Registration (Min 5, Max 10)</label>
+                    <input type="number" name="points" min="5" max="10" class="form-control" value="5" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white !important;" required>
+                </div>
+                <button type="submit" class="btn btn-custom w-100 mt-2 py-3 rounded-3 shadow-lg">Upload Files & Proceed</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
